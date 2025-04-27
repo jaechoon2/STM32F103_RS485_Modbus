@@ -35,39 +35,6 @@ MainWindow::~MainWindow()
 {
 }
 
-void MainWindow::setupUi()
-{
-    QWidget *centralWidget = new QWidget(this);
-    setCentralWidget(centralWidget);
-
-    btnRelayOn = new QPushButton("Relay ON", this);
-    btnRelayOff = new QPushButton("Relay OFF", this);
-
-    tableWidget = new QTableWidget(10, 2, this);
-    tableWidget->setHorizontalHeaderLabels(QStringList() << "Channel" << "Value");
-    for (int i = 0; i < 10; ++i) {
-        tableWidget->setItem(i, 0, new QTableWidgetItem(QString("CH%1").arg(i)));
-    }
-
-    chart = new QChart();
-    series = new QLineSeries();
-    chart->addSeries(series);
-    chart->createDefaultAxes();
-    chart->setTitle("ADC Channel 0 Real-Time Plot");
-
-    chartView = new QChartView(chart, this);
-    chartView->setRenderHint(QPainter::Antialiasing);
-
-    QHBoxLayout *buttonLayout = new QHBoxLayout();
-    buttonLayout->addWidget(btnRelayOn);
-    buttonLayout->addWidget(btnRelayOff);
-
-    QVBoxLayout *mainLayout = new QVBoxLayout(centralWidget);
-    mainLayout->addLayout(buttonLayout);
-    mainLayout->addWidget(tableWidget);
-    mainLayout->addWidget(chartView);
-}
-
 void MainWindow::sendModbusRequest()
 {
     QByteArray request;
